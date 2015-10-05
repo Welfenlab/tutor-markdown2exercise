@@ -1,0 +1,24 @@
+{
+  "name": "@tutor/markdown2exercise",
+  "version": "0.1.0",
+  "description": "A markdown to exercise converter for tutor.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha"
+  },
+  "keywords": [
+    "Tutor",
+    "Exercise",
+    "Markdown",
+    "Converter"
+  ],
+  "author": "Maximilian Klein",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "mocha": "^2.3.3"
+  },
+  "dependencies": {
+    "markdown-it": "^5.0.0"
+  }
+}

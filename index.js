@@ -1,17 +1,18 @@
 
 var mIt = new require("markdown-it")();
 var headings = require("./src/headings");
+var taskCreator = require("./src/tasks");
 
 module.exports = function(markdown){
   var tokens = mIt.parse(markdown);
+  var errors = [];
 
-  titleResult = headings(tokens, 1);
+  title = headings.title(tokens, errors);
+  tasks = headings.tasks(tokens).map(function(t){ return taskCreator(tokens, t); });
 
   return {
-    title: titleResult.title,
-    tasks: [],
-    tests: [],
-    solution: [],
-    error: titleResult.error
+    title: title,
+    tasks: tasks,
+    error: errors
   };
 };

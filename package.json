@@ -12,6 +12,7 @@
     "Markdown",
     "Converter"
   ],
+  "repository" : "github:Welfenlab/tutor-markdown2exercise",
   "author": "Maximilian Klein",
   "license": "MIT",
   "devDependencies": {

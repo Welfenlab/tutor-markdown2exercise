@@ -26,6 +26,7 @@ var getParagraphText = function(start, end, tokens, mdLines){
 }
 
 var getSectionContent = function(section, tokens, mdLines){
+  if(section.start + 2 >= section.end) return "";
   return mdLines.slice(
     firstLine(section.start + 2, tokens),
     lastLine(section.end, tokens)).join("\n");

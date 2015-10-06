@@ -81,4 +81,9 @@ describe("Markdown 2 Exercise Converter", function(){
     var exercise = m2e("# Title\n## Task");
     exercise.tasks.should.have.length(1);
   });
+
+  it("assigns a subsection an empty content if the content is empty", function(){
+    var exercise = m2e("# Title\n## Task\n### Solution");
+    exercise.tasks[0].solution.should.equal("");
+  });
 });

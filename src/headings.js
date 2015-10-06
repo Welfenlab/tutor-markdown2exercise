@@ -43,12 +43,11 @@ var getHeadings = function(tokens, level, start){
 
 var getSection = function(tokens, level, start) {
   start = start || 0;
-  var res = [];
   var i = start;
   while(i<tokens.length){
     if(tokens[i].tag == "h"+level && tokens[i].type == "heading_open"){
       nextStart = nextBlockStart(tokens, i + 1, level);
-      return {start: i, end: nextStart - 1, block: getInlineBlock(tokens, i)};
+      return {start: i, end: nextStart - 1};
       i = end;
     } else if(tokens[i].type == "heading_open" && tokens[i].tag[1] < level){
       // leave loop if this heading is on a higher level
@@ -56,7 +55,7 @@ var getSection = function(tokens, level, start) {
     }
     i++;
   }
-  return res;
+  return {start: tokens.length, end: tokens.length};
 };
 
 module.exports = {

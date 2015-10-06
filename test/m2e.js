@@ -30,6 +30,11 @@ describe("Markdown 2 Exercise Converter", function(){
     exercise.tasks.should.have.length(2);
   });
 
+  it("reads the title of the subheading", function(){
+    var exercise = m2e("## Task 1");
+    exercise.tasks[0].title.should.equal("Task 1");
+  });
+
   it("extracts the text from the task", function(){
     var exercise = m2e("## Task 1\nDo this!");
     exercise.tasks[0].text.should.equal("Do this!");

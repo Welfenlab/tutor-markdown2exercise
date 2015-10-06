@@ -12,6 +12,17 @@ var blockEnd = function(tokens, i, nesting){
   }
 }
 
+var nextBlockStart = function(tokens, i, level){
+  if(i>=tokens.length){
+    return i-1;
+  }
+  if(tokens[i].tag[1] <= level && tokens[i].type == "heading_open"){
+    return i;
+  } else {
+    return nextBlockStart(tokens, i+1, level);
+  }
+}
+
 var getHeadings = function(tokens, level, start){
   start = start || 0;
   var res = [];
@@ -28,7 +39,25 @@ var getHeadings = function(tokens, level, start){
     i++;
   }
   return res;
-}
+};
+
+var getSection = function(tokens, level, start) {
+  start = start || 0;
+  var res = [];
+  var i = start;
+  while(i<tokens.length){
+    if(tokens[i].tag == "h"+level && tokens[i].type == "heading_open"){
+      nextStart = nextBlockStart(tokens, i + 1, level);
+      return {start: i, end: nextStart - 1, block: getInlineBlock(tokens, i)};
+      i = end;
+    } else if(tokens[i].type == "heading_open" && tokens[i].tag[1] < level){
+      // leave loop if this heading is on a higher level
+      break;
+    }
+    i++;
+  }
+  return res;
+};
 
 module.exports = {
   title: function(tokens, errors) {
@@ -47,6 +76,9 @@ module.exports = {
     return getHeadings(tokens, 2);
   },
   subheadings: function(tokens, idx){
-    return getHeadings(tokens, 3, idx);
+    return getHeadings(tokens, 3, idx).map(function(h){
+      h.section = getSection(tokens, 3, h.start);
+      return h;
+    });
   }
 };

@@ -43,5 +43,37 @@ describe("Markdown 2 Exercise Converter", function(){
   it("returns a markdown string as the exercise text", function(){
     var exercise = m2e("## Task 1\nDo **this** and *that*");
     exercise.tasks[0].text.should.equal("Do **this** and *that*");
-  })
+  });
+
+  it("preserves paragraphs in the exercise text", function(){
+    var exercise = m2e("## Task 3\nDo this\n\n\nDo that");
+    exercise.tasks[0].text.should.equal("Do this\n\n\nDo that");
+  });
+
+  it("preserves listings in the exercise text", function(){
+    var exercise = m2e("## Task 2\nA\n - a\n - b\nBla bla");
+    exercise.tasks[0].text.should.equal("A\n - a\n - b\nBla bla");
+  });
+
+  it("returns a prefilled value for a task if given", function(){
+    var exercise = m2e("## Task 2\nTest\n### Prefilled\nAlready there!!");
+    exercise.tasks[0].prefilled.should.equal("Already there!!");
+  });
+
+  it("returns a prefilled value for the tests if given", function(){
+    var exercise = m2e("## Task 2\nTest\n### Tests\nNo testing here!!!");
+    exercise.tasks[0].tests.should.equal("No testing here!!!");
+  });
+
+  it("returns a prefilled value for the solution if given", function(){
+    var exercise = m2e("## Task 2\nTest\n### Solution\nEasy peasy");
+    exercise.tasks[0].solution.should.equal("Easy peasy");
+  });
+
+  it("can handle mutliple subheadings in one task", function(){
+    var exercise = m2e("## Task 3\nText!\n### Prefilled\nNothing\n### Tests\nTests..\n### Solution\nNone");
+    exercise.tasks[0].prefilled.should.equal("Nothing");
+    exercise.tasks[0].tests.should.equal("Tests..");
+    exercise.tasks[0].solution.should.equal("None");
+  });
 });

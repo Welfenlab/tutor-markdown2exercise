@@ -21,8 +21,8 @@ describe("Markdown 2 Exercise Converter", function(){
 
   it("complains about multiple titles", function(){
     var exercise = m2e("# Title1\n# Title2");
-    exercise.error.should.be.an("array");
-    exercise.error.should.have.length(1);
+    exercise.internals.error.should.be.an("array");
+    exercise.internals.error.should.have.length(1);
   });
 
   it("creates tasks via subheadings", function(){

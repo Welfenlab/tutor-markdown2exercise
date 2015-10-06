@@ -13,6 +13,9 @@ module.exports = function(markdown){
   return {
     title: titleObj.block.content,
     tasks: tasks,
-    error: errors
+    internals: {
+      error: errors,
+      source: markdown
+    }
   };
 };

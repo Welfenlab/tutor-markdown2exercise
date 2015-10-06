@@ -64,16 +64,16 @@ module.exports = {
     var res = getHeadings(tokens, 1);
     if(res.length == 0){
       errors.push({message: "No title found"});
-      return "";
+      return {block:{content:""}, start:0, end:0};
     } else if(res.length > 1){
       errors.push({message: "Multiple title objects found", data:res});
-      return res[0].block.content;
+      return res[0];
     } else {
-      return res[0].block.content;
+      return res[0];
     }
   },
-  tasks: function(tokens, errors) {
-    return getHeadings(tokens, 2);
+  tasks: function(tokens, start) {
+    return getHeadings(tokens, 2, start);
   },
   subheadings: function(tokens, idx){
     return getHeadings(tokens, 3, idx).map(function(h){

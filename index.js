@@ -7,11 +7,11 @@ module.exports = function(markdown){
   var tokens = mIt.parse(markdown);
   var errors = [];
 
-  title = headings.title(tokens, errors);
-  tasks = headings.tasks(tokens).map(function(t){ return taskCreator(markdown, tokens, t); });
+  titleObj = headings.title(tokens, errors);
+  tasks = headings.tasks(tokens, titleObj.end).map(function(t){ return taskCreator(markdown, tokens, t); });
 
   return {
-    title: title,
+    title: titleObj.block.content,
     tasks: tasks,
     error: errors
   };

@@ -76,4 +76,9 @@ describe("Markdown 2 Exercise Converter", function(){
     exercise.tasks[0].tests.should.equal("Tests..");
     exercise.tasks[0].solution.should.equal("None");
   });
+
+  it("can read tasks with an existing title", function(){
+    var exercise = m2e("# Title\n## Task");
+    exercise.tasks.should.have.length(1);
+  });
 });

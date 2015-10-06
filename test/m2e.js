@@ -86,4 +86,9 @@ describe("Markdown 2 Exercise Converter", function(){
     var exercise = m2e("# Title\n## Task\n### Solution");
     exercise.tasks[0].solution.should.equal("");
   });
+
+  it("can parse subsections with code envirnoments", function(){
+    var exercise = m2e("## Task\n### Tests\n```js\nconsole.log('a');\n```");
+    exercise.tasks[0].tests.should.equal("```js\nconsole.log('a');\n```");
+  });
 });

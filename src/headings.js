@@ -14,7 +14,7 @@ var blockEnd = function(tokens, i, nesting){
 
 var nextBlockStart = function(tokens, i, level){
   if(i>=tokens.length){
-    return i-1;
+    return i;
   }
   if(tokens[i].tag[1] <= level && tokens[i].type == "heading_open"){
     return i;

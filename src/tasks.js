@@ -38,6 +38,10 @@ var hasTitle = function(title){
   }
 }
 
+var parsePoints = function(titleBlock){
+  return ((/\((\d+) Punkte\)/).exec(titleBlock) || [])[1];
+}
+
 var emptySub = {content:""};
 
 module.exports = function(markdown, tokens, taskToken){
@@ -59,6 +63,7 @@ module.exports = function(markdown, tokens, taskToken){
 
   return {
     title: taskToken.block.content,
+    maxPoints: parsePoints(taskToken.block.content),
     text: text,
     prefilled: (subsections.find(hasTitle("Prefilled")) || emptySub).content,
     tests: (subsections.find(hasTitle("Tests")) || emptySub).content,

@@ -18,6 +18,11 @@ describe("Markdown 2 Exercise Converter", function(){
     var exercise = m2e("# Title");
     exercise.title.should.equal("Title");
   });
+  
+  it("can parse the exercise number in the title", function(){
+    var exercise = m2e("# Exercise 1");
+    exercise.number.should.equal('1');
+  });
 
   it("complains about multiple titles", function(){
     var exercise = m2e("# Title1\n# Title2");
@@ -28,6 +33,11 @@ describe("Markdown 2 Exercise Converter", function(){
   it("creates tasks via subheadings", function(){
     var exercise = m2e("## Task 1\n## Task 2");
     exercise.tasks.should.have.length(2);
+  });
+  
+  it("parses the points for every task", function(){
+    var exercise = m2e("## Task 2 (10 Punkte)");
+    exercise.tasks[0].maxPoints.should.equal("10");
   });
 
   it("reads the title of the subheading", function(){

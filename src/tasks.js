@@ -1,5 +1,6 @@
 
 var headings = require("./headings");
+var _ = require("lodash");
 
 var firstLine = function(start, tokens){
   for(var i=start; i<tokens.length; i++){
@@ -65,8 +66,8 @@ module.exports = function(markdown, tokens, taskToken){
     title: taskToken.block.content,
     maxPoints: parsePoints(taskToken.block.content),
     text: text,
-    prefilled: (subsections.find(hasTitle("Prefilled")) || emptySub).content,
-    tests: (subsections.find(hasTitle("Tests")) || emptySub).content,
-    solution: (subsections.find(hasTitle("Solution")) || emptySub).content
+    prefilled: (_.find(subsections, hasTitle("Prefilled")) || emptySub).content,
+    tests: (_.find(subsections,hasTitle("Tests")) || emptySub).content,
+    solution: (_.find(subsections,hasTitle("Solution")) || emptySub).content
   };
 }

@@ -69,5 +69,6 @@ module.exports = function(markdown, tokens, taskToken){
     prefilled: (_.find(subsections, hasTitle("Prefilled")) || emptySub).content,
     tests: (_.find(subsections,hasTitle("Tests")) || emptySub).content,
     solution: (_.find(subsections,hasTitle("Solution")) || emptySub).content
+    solutionTests: (_.find(subsections, hasTitle("SolutionTests")) || emptySub).content
   };
 }

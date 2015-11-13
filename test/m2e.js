@@ -18,7 +18,7 @@ describe("Markdown 2 Exercise Converter", function(){
     var exercise = m2e("# Title");
     exercise.title.should.equal("Title");
   });
-  
+
   it("can parse the exercise number in the title", function(){
     var exercise = m2e("# Exercise 1");
     exercise.number.should.equal('1');
@@ -34,7 +34,7 @@ describe("Markdown 2 Exercise Converter", function(){
     var exercise = m2e("## Task 1\n## Task 2");
     exercise.tasks.should.have.length(2);
   });
-  
+
   it("parses the points for every task", function(){
     var exercise = m2e("## Task 2 (10 Punkte)");
     exercise.tasks[0].maxPoints.should.equal("10");
@@ -105,5 +105,11 @@ describe("Markdown 2 Exercise Converter", function(){
   it("can parse subsections with code envirnoments", function(){
     var exercise = m2e("## Task\n### Tests\n```js\nconsole.log('a');\n```");
     exercise.tasks[0].tests.should.equal("```js\nconsole.log('a');\n```");
+  });
+
+  it("adds correct numbers to tasks", function(){
+    var exercise = m2e("## Task\n## Another task```");
+    exercise.tasks[0].number.should.equal(1);
+    exercise.tasks[1].number.should.equal(2);
   });
 });

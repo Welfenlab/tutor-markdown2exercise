@@ -1,4 +1,4 @@
-
+var _ = require("lodash");
 var mIt = new require("markdown-it")();
 var headings = require("./src/headings");
 var taskCreator = require("./src/tasks");
@@ -13,6 +13,9 @@ module.exports = function(markdown){
 
   titleObj = headings.title(tokens, errors);
   tasks = headings.tasks(tokens, titleObj.end).map(function(t){ return taskCreator(markdown, tokens, t); });
+  _.forEach(tasks, function(t, idx) {
+      t.number = idx + 1;
+  });
 
   return {
     title: titleObj.block.content,

@@ -1,6 +1,6 @@
 {
   "name": "@tutor/markdown2exercise",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "A markdown to exercise converter for tutor.",
   "main": "index.js",
   "scripts": {

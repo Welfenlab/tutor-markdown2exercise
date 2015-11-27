@@ -2,12 +2,13 @@ var _ = require("lodash");
 var mIt = new require("markdown-it")();
 var headings = require("./src/headings");
 var taskCreator = require("./src/tasks");
+var markdownChecker = require("./src/check");
 
 var parseExerciseNumber = function(titleBlock){
   return ((/(\d+)/).exec(titleBlock) || [])[1];
 }
 
-module.exports = function(markdown){
+var m2e = function(markdown){
   var tokens = mIt.parse(markdown);
   var errors = [];
 
@@ -27,3 +28,7 @@ module.exports = function(markdown){
     }
   };
 };
+
+m2e.check = markdownChecker;
+
+module.exports = m2e;

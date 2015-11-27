@@ -40,6 +40,11 @@ describe("Markdown 2 Exercise Converter", function(){
     exercise.tasks[0].maxPoints.should.equal("10");
   });
 
+  it("parses removes points from a task's title", function(){
+    var exercise = m2e("## Task 2 (10 Punkte)");
+    exercise.tasks[0].title.should.equal("Task 2");
+  });
+
   it("reads the title of the subheading", function(){
     var exercise = m2e("## Task 1");
     exercise.tasks[0].title.should.equal("Task 1");

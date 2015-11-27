@@ -39,8 +39,12 @@ var hasTitle = function(title){
   }
 }
 
+var parseTitle = function(titleBlock) {
+  return ((/^(.+?)( \((\d+) Punkte\))?$/).exec(titleBlock) || [])[1]
+}
+
 var parsePoints = function(titleBlock){
-  return ((/\((\d+) Punkte\)/).exec(titleBlock) || [])[1];
+  return ((/^(.+?)( \((\d+) Punkte\))?$/).exec(titleBlock) || [])[3];
 }
 
 var emptySub = {content:""};
@@ -63,7 +67,7 @@ module.exports = function(markdown, tokens, taskToken){
   });
 
   return {
-    title: taskToken.block.content,
+    title: parseTitle(taskToken.block.content),
     maxPoints: parsePoints(taskToken.block.content),
     text: text,
     prefilled: (_.find(subsections, hasTitle("Prefilled")) || emptySub).content,
